@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/ build/
+venv/ .venv/ env/
+.env *.env
+*.db *.sqlite *.sqlite3
+frontend/node_modules/
+frontend/build/
+npm-debug.log*
+.vscode/ .idea/
+*.DS_Store Thumbs.db
+.pytest_cache/ htmlcov/ .coverage coverage.xml
+task_sdk/generated/
+task_sdk/schema.json
+task_sdk/openapi-generator-cli.jar

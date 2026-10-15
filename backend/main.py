@@ -33,14 +33,21 @@ app = FastAPI(
 )
 
 # ── CORS ──────────────────────────────────────────────────────────────────
+import os
+cors_env = os.getenv("CORS_ORIGINS", "")
+allowed_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+if cors_env:
+    allowed_origins.extend([o.strip() for o in cors_env.split(",") if o.strip()])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=allowed_origins if cors_env != "*" else ["*"],
+    allow_origin_regex=r"https?://.*" if os.getenv("ALLOW_ALL_ORIGINS", "false").lower() == "true" else None,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
